@@ -16,7 +16,7 @@ def _download(instance: Video):
     parent.mkdir(exist_ok=True)
     path = parent.joinpath(filename)
     log = parent.joinpath(f'{instance.room_code}.log')
-    cmd = f'ffmpeg -y -i {instance.url} {path} > {log} 2>&1'
+    cmd = f'ffmpeg -y -i {instance.url} -max_muxing_queue_size 65535 {path} -async 1 -vsync 1 > {log} 2>&1'
     error = os.system(cmd)
     instance = Video.objects.get(pk=instance.pk)
     if error:

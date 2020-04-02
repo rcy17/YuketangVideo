@@ -23,7 +23,7 @@ class Video(models.Model):
              update_fields=None):
         if not self.pk:
             try:
-                self.room_code = '-'.join(self.url.split('/')[-2].split('-')[1:])
+                self.room_code = self.url.split('/')[-2]
             except:
                 raise ValidationError('url有误')
             if not self.name:
